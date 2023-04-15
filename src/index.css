@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+:root {
+    --mobileBg: url('./assets/images/pattern-bg-mobile.png');
+    --DesktopBg: url('./assets/images/pattern-bg-desktop.png')
+}
+
+.mobilePng {
+    background-image: var(--mobileBg);
+}
+
+.desktopPng {
+    background-image: var(--DesktopBg);
+}
