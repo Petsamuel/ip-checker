@@ -6,12 +6,11 @@ interface Props {
 
 function Home({ text }: Props) {
   return (
-    <section>
+    <section className="">
       <Header title="IP Address Tracker" />
-          section 2
+      section 2
     </section>
   );
-
 }
 
 export default Home;
