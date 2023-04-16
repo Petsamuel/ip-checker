@@ -7,7 +7,7 @@ interface Props {
 
 function Form({ handleChange, value }: Props) {
   return (
-    <section className="py-8 text-sm grid place-items-center">
+    <section className="py-8 text-sm grid place-items-center relative">
       <div className="inline-flex place-items top-60 text-black  justify-center mx-4">
         <input
           type="text"

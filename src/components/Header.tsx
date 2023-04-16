@@ -5,18 +5,17 @@ interface Props {
 }
 
 function Header({ title }: Props) {
-  const [isvalue, setIsvalue] = useState("");
+  const [isValue, setIsValue] = useState("");
   return (
     <section className=" relative grid place-items-center bg-cover font-[Rubik] text-white text-3xl py-8 desktopPng sm:mobilePng">
       <h1>{title}</h1>
-
       <Form
         handleChange={(event) => {
-          setIsvalue(event.target.value);
+          setIsValue(event.target.value);
         }}
-        value={isvalue}
+        value={isValue}
       />
-      {isvalue}
+      {isValue}
     </section>
   );
 }
