@@ -1,9 +1,20 @@
 import IconSvg from "../assets/images/icon-arrow.svg";
+import data from "../components/data/data";
 
 interface Props {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
 }
+const url = data.Geo_location.url;
+const header = data.headers;
+
+const FetchData = async () => {
+  const response = await fetch(`${url}/`, {
+    method: "Get",
+    // header,
+  }).then((res) => res.json());
+  console.log(response);
+};
 
 function Form({ handleChange, value }: Props) {
   return (
