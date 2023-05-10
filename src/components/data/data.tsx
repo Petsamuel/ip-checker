@@ -10,10 +10,13 @@ export default {
     secret_key: `${import.meta.env.VITE_APP_IP_SECRET_KEY}`,
   },
   Geo_location: {
-    url: "https://geo.ipify.org/api/v2/country",
+    url: `https://geo.ipify.org/api/v2/country,city?apiKey=${Secret_key}&ipAddress=`,
   },
-  headers: {
-    "Content-Type": "application/json",
-    "x-api-key": `${Secret_key}`,
+  options: {
+    method: "get",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": `${Secret_key}`,
+    },
   },
 };
