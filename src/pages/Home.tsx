@@ -1,13 +1,20 @@
 import Header from "../components/Header";
 import Map from "../components/Map";
+import { useState } from "react";
 
 function Home() {
+
+  const [Position, setPosition] = useState<[number, number] | null>();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setPosition([position.coords.latitude, position.coords.longitude]);
+    });
+  }
+
   return (
-    <section className="flex flex-col h-full">
+    <section className=" h-full">
       <Header />
-      <div className="h-full w-full">
-        <Map center={[51.505, -0.09]} />
-      </div>
+      {Position && <Map center={Position} />}
     </section>
   );
 }

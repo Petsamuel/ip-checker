@@ -11,15 +11,12 @@ function Map({ center }: Props) {
   const Mapref = useRef(null);
 
   return (
-    <section>
+    <Fragment>
       <MapContainer
+        center={center}
         zoom={13}
         scrollWheelZoom={false}
         ref={Mapref}
-        center={[6.62103, 3.37469]}
-        zoomAnimation={true}
-        markerZoomAnimation={true}
-        scroll-smooth={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -31,9 +28,8 @@ function Map({ center }: Props) {
           </Popup>
         </Marker>
       </MapContainer>
-    </section>
+    </Fragment>
   );
 }
-[6.62103, 3.37469];
 
 export default Map;

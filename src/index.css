@@ -4,12 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    --mobileBg: url('./assets/images/pattern-bg-mobile.png');
-    --desktopBg: url('./assets/images/pattern-bg-desktop.png');
-
-}
-
 * {
     box-sizing: border-box;
     margin: 0px;
@@ -19,7 +13,7 @@
 
 .leaflet-container {
     width: 100%;
-    height: 100%;
+    height: 70vh;
     z-index: 10;
     position: relative;
 }
