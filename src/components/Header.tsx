@@ -1,21 +1,18 @@
 import { useState } from "react";
 import Form from "./Form";
-interface Props {
-  title: string;
-}
 
-function Header({ title }: Props) {
-  const [isValue, setIsValue] = useState("");
+function Header() {
+  const [userValue, setuserValue] = useState("");
   return (
-    <section className=" relative grid place-items-center bg-cover font-[Rubik] text-white text-3xl py-8 desktopPng sm:mobilePng">
-      <h1>{title}</h1>
+    <section className=" justify-center bg-cover  text-white text-3xl py-8 bg-blue-200 font-[Rubik] ">
       <Form
-        handleChange={(event) => {
-          setIsValue(event.target.value);
+        title="IP Address Tracker"
+        handleChange={(e) => {
+          setuserValue(e.target.value);
         }}
-        value={isValue}
+        value={userValue}
       />
-      {isValue}
+      {userValue}
     </section>
   );
 }

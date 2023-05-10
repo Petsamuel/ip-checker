@@ -1,30 +1,29 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { useState, useRef } from "react";
+import { Fragment, useState, useRef } from "react";
 import mapTiler from "./data/data";
+import "leaflet/dist/leaflet.css";
+
 interface Props {
   center: [number, number];
-  zoom: number;
 }
-import "leaflet/dist/leaflet.css";
-import { tileLayer } from "leaflet";
 
-function Map({ center, zoom }: Props) {
-  const [mapCenter, useMapCenter] = useState(center);
+function Map({ center }: Props) {
   const Mapref = useRef(null);
-  
-  
 
   return (
-    <section className="relative w-full h-96">
+    <section>
       <MapContainer
-        center={mapCenter}
-        zoom={zoom}
+        zoom={13}
         scrollWheelZoom={false}
         ref={Mapref}
+        center={[6.62103, 3.37469]}
+        zoomAnimation={true}
+        markerZoomAnimation={true}
+        scroll-smooth={true}
       >
         <TileLayer
-          attribution={mapTiler.mapTiler.attributions}
-          url={mapTiler.mapTiler.url}
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={center}>
           <Popup>
@@ -35,5 +34,6 @@ function Map({ center, zoom }: Props) {
     </section>
   );
 }
+[6.62103, 3.37469];
 
 export default Map;
