@@ -1,6 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Fragment, useState, useRef } from "react";
-import mapTiler from "./data/data";
 import "leaflet/dist/leaflet.css";
 
 interface Props {

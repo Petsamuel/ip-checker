@@ -1,22 +1,31 @@
 import { useEffect, useState } from "react";
 import IconSvg from "../assets/images/icon-arrow.svg";
-import data from "../components/data/data";
 
 interface Props {
   // handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
+  Result: (e: {}) => void;
 }
 
-function Form({ title }: Props) {
-  const options = data.options;
-  const url = data.Geo_location.url;
+function Form({ title, Result }: Props) {
   const [message, setMessage] = useState<string | null>();
   const [userInput, setUserInput] = useState<string | null>();
+  const Secret_key = import.meta.env.VITE_APP_IP_SECRET_KEY;
+  const url = `https://geo.ipify.org/api/v2/country?apiKey=${Secret_key}`;
+
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((response) => Result(response))
+
+  //     .catch((err) => console.error(err));
+  // });
 
   function Validate() {
-    fetch(url + userInput, options)
-      .then((res) => res.json())
-      .then((result) => console.log(result));
+    // fetch(url)
+    //   .then((response) => response.json())
+    //   .then((response) => Result(response))
+    //   .catch((err) => console.error(err));
 
     switch (true) {
       case userInput === "":
@@ -32,8 +41,6 @@ function Form({ title }: Props) {
         break;
     }
   }
-  console.log(userInput);
-
   return (
     <section className="py-8 text-sm ">
       <div className="top-60 text-black gap-5 grid items-center place-content-center">
