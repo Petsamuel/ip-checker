@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "./Form";
 
-function Header() {
-  const [fetch, setFetch] = useState();
+interface Props {
+  position: (e: null) => void;
+}
+
+function Header({ position }: Props) {
+  const [fetch, setFetch] = useState<null>();
+  const [Position, setGeoPosition] = useState<[] | null>([]);
+
   const Result = (e: any) => {
     setFetch(e);
   };
-  // console.log(fetch);
+
+  useEffect(() => {
+    return setGeoPosition(position);
+  });
+
   return (
     <section
       className="flex flex-col justify-center bg-cover
@@ -26,21 +36,51 @@ function Header() {
           {/* location */}
           <div className=" border-l px-4">
             <p className="uppercase text-xs  border-gray-400 ">Location</p>
-            <p className="text-xl text-black font-semibold">{fetch && fetch.location.region}</p>
+            <p className="text-xl text-black font-semibold">
+              {fetch && fetch.city}
+            </p>
           </div>
 
           {/* timezone */}
           <div className="border-l  px-4">
-            <p className="uppercase text-xs ">Timezone</p>
-            <p className="text-xl text-black font-semibold">{fetch && fetch.location.timezone}</p>
+            {!fetch.timezone ? (
+              <>
+                <p className="uppercase text-xs ">Timezone</p>
+                <p className="text-xl text-black font-semibold">
+                  {fetch && fetch.timezone}
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="uppercase text-xs ">PhoneCode</p>
+                <p className="text-xl text-black font-semibold">
+                  {fetch && fetch.phoneCode}
+                </p>
+              </>
+            )}
           </div>
 
           {/* isp */}
           <div className="border-l  px-4">
-            <p className="uppercase text-sm">ISP</p>
+            {/* <p className="uppercase text-sm">ISP</p>
             <p className="text-xl text-black font-semibold">
               {fetch && fetch.isp}
-            </p>
+            </p> */}
+            {!fetch.isp ? (
+              <>
+                <p className="uppercase text-xs ">ISP</p>
+                <p className="text-xl text-black font-semibold">
+                  {fetch && fetch.isp}
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="uppercase text-xs ">Domains</p>
+                <p className="text-xl text-black font-semibold">
+                  {fetch && fetch.topLevelDomains}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -11,22 +11,17 @@ function Form({ title, Result }: Props) {
   const [message, setMessage] = useState<string | null>();
   const [userInput, setUserInput] = useState<string | null>();
   const Secret_key = import.meta.env.VITE_APP_IP_SECRET_KEY;
-  const url = `https://geo.ipify.org/api/v2/country?apiKey=${Secret_key}`;
+  const ip = "102.89.23.71";
+  const User_url = "https://ipapi.co/json";
+  const url = `http://apiip.net/api/check?ip=${ip}&accessKey=${Secret_key}`;
 
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then((response) => response.json())
-  //     .then((response) => Result(response))
-
-  //     .catch((err) => console.error(err));
-  // });
+  useEffect(() => {
+    fetch(url)
+      .then((result) => result.json())
+      .then((result) => Result(result));
+  }, []);
 
   function Validate() {
-    // fetch(url)
-    //   .then((response) => response.json())
-    //   .then((response) => Result(response))
-    //   .catch((err) => console.error(err));
-
     switch (true) {
       case userInput === "":
         const rest = setTimeout(() => {
