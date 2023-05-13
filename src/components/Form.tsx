@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
 import IconSvg from "../assets/images/icon-arrow.svg";
+import { createGlobalState } from "react-hooks-global-state";
 
 interface Props {
   // handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
-  Result: (e: {}) => void;
 }
+const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
+  userData: {
+    ip: "",
+    city: "",
+    phoneCode: "",
+    regionCode: "",
+    latitude: 0,
+    longitude: 0,
+  },
+});
 
-function Form({ title, Result }: Props) {
+function Form({ title }: Props) {
   const [message, setMessage] = useState<string | null>();
   const [userInput, setUserInput] = useState<string | null>();
+  const [userData, setUserData] = useGlobalState("userData");
   const Secret_key = import.meta.env.VITE_APP_IP_SECRET_KEY;
   const ip = "102.89.23.71";
   const User_url = "https://ipapi.co/json";
@@ -18,7 +29,7 @@ function Form({ title, Result }: Props) {
   useEffect(() => {
     fetch(url)
       .then((result) => result.json())
-      .then((result) => Result(result));
+      .then((result) => setUserData(result));
   }, []);
 
   function Validate() {
@@ -63,3 +74,4 @@ function Form({ title, Result }: Props) {
 }
 
 export default Form;
+export { setGlobalState, useGlobalState, getGlobalState };

@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useRef } from "react";
+import { useGlobalState } from "./Form";
 import "leaflet/dist/leaflet.css";
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 function Map({ center }: Props) {
+  const [userData] = useGlobalState("userData");
+
   const Mapref = useRef(null);
 
   return (
@@ -21,7 +24,11 @@ function Map({ center }: Props) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={center}>
+        <Marker
+          position={
+            userData ? center : [userData.latitude, userData.longitude]
+          }
+        >
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>

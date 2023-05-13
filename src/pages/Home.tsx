@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Map from "../components/Map";
 import { useState } from "react";
+import { useGlobalState } from "../components/Form";
 
 function Home() {
   const [Position, setPosition] = useState<[number, number] | null>();
@@ -9,13 +10,17 @@ function Home() {
       setPosition([position.coords.latitude, position.coords.longitude]);
     });
   }
-  const xPosition = (e: any) => {
-    return e;
-  };
+
   return (
     <section className=" h-full">
-      <Header position={xPosition} />
-      {Position && <Map center={Position} />}
+      <Header />
+      {Position && (
+        <Map
+          center={
+             Position 
+          }
+        />
+      )}
     </section>
   );
 }
