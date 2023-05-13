@@ -19,8 +19,8 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
 
 function Form({ title }: Props) {
   const [message, setMessage] = useState<string | null>();
-  const [userInput, setUserInput] = useState<string | undefined>();
   const [userData, setUserData] = useGlobalState("userData");
+  const [userInput, setUserInput] = useState<{ ip: any } | null>();
 
   const User_url = "https://ipapi.co/json";
   // const url = `http://apiip.net/api/check?ip=${ip}&accessKey=${Secret_key}`;
@@ -45,6 +45,7 @@ function Form({ title }: Props) {
         break;
 
       case userInput !== undefined:
+        console.log(userInput?.ip);
         break;
 
       default:
@@ -62,7 +63,7 @@ function Form({ title }: Props) {
         break;
 
       default:
-        fetch(`https://ipapi.co/${userInput.ip}/json`)
+        fetch(`https://ipapi.co/${userInput?.ip}/json`)
           .then((result) => result.json())
           .then((result) =>
             setUserData({
