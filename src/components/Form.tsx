@@ -10,40 +10,72 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
   userData: {
     ip: "",
     city: "",
-    phoneCode: "",
-    regionCode: "",
-    latitude: 0,
-    longitude: 0,
+    latitude: 51.505,
+    longitude: -0.09,
+    org: "",
+    timezone: "",
   },
 });
 
 function Form({ title }: Props) {
   const [message, setMessage] = useState<string | null>();
-  const [userInput, setUserInput] = useState<string | null>();
+  const [userInput, setUserInput] = useState<string | undefined>();
   const [userData, setUserData] = useGlobalState("userData");
-  const Secret_key = import.meta.env.VITE_APP_IP_SECRET_KEY;
-  const ip = "102.89.23.71";
+
   const User_url = "https://ipapi.co/json";
-  const url = `http://apiip.net/api/check?ip=${ip}&accessKey=${Secret_key}`;
+  // const url = `http://apiip.net/api/check?ip=${ip}&accessKey=${Secret_key}`;
+  // const Secret_key = import.meta.env.VITE_APP_IP_SECRET_KEY;
 
   useEffect(() => {
-    fetch(url)
-      .then((result) => result.json())
-      .then((result) => setUserData(result));
-  }, []);
+    switch (true) {
+      case userInput === undefined || null:
+        fetch(User_url)
+          .then((result) => result.json())
+          .then((result) =>
+            setUserData({
+              ...userData,
+              ip: result.ip,
+              city: result.city,
+              timezone: result.timezone,
+              org: result.org,
+              latitude: result.latitude,
+              longitude: result.longitude,
+            })
+          );
+        break;
 
+      case userInput !== undefined:
+        break;
+
+      default:
+        break;
+    }
+  }, [userInput, userData]);
+
+  // console.log(userData.ip);
   function Validate() {
     switch (true) {
-      case userInput === "":
+      case userInput === undefined:
         const rest = setTimeout(() => {
           setMessage("cannot be black");
         }, 300);
         break;
 
       default:
-        setTimeout(() => {
-          setMessage("Searching ....");
-        }, 300);
+        fetch(`https://ipapi.co/${userInput.ip}/json`)
+          .then((result) => result.json())
+          .then((result) =>
+            setUserData({
+              ...userData,
+              ip: result.ip,
+              city: result.city,
+              timezone: result.timezone,
+              org: result.org,
+              latitude: result.latitude,
+              longitude: result.longitude,
+            })
+          )
+          .catch((error) => console.log(error));
         break;
     }
   }
@@ -56,10 +88,10 @@ function Form({ title }: Props) {
         <div className="flex lg:w-[40em] md:w-80 w-full">
           <input
             type="text"
-            placeholder={"Search for any IP address or domain"}
+            placeholder={"Search for any IP address "}
             className={"rounded-l-lg p-4 outline-none w-full"}
             onChange={(e) => {
-              setUserInput(e.target.value);
+              setUserInput({ ...userData, ip: e.target.value });
             }}
           />
 

@@ -31,12 +31,12 @@ function Header() {
           {/* timezone */}
           <div className="border-l  px-4">
             <>
-              <p className="uppercase text-xs ">PhoneCode</p>
+              <p className="uppercase text-xs ">Timezone</p>
               <p className="text-xl text-black font-semibold">
                 {fetch === undefined ? (
                   "Loading..."
                 ) : (
-                  <> {Userdata && Userdata.phoneCode}</>
+                  <> {Userdata && Userdata.timezone}</>
                 )}
               </p>
             </>
@@ -45,12 +45,12 @@ function Header() {
           {/* isp */}
           <div className="border-l  px-4">
             <>
-              <p className="uppercase text-xs ">regionCode</p>
+              <p className="uppercase text-xs ">ISP</p>
               <p className="text-xl text-black font-semibold">
                 {fetch === undefined ? (
                   "Loading..."
                 ) : (
-                  <> {Userdata && Userdata.regionCode}</>
+                  <> {Userdata && Userdata.org}</>
                 )}
               </p>
             </>
