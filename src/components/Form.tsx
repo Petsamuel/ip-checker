@@ -20,35 +20,36 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
 function Form({ title }: Props) {
   const [message, setMessage] = useState<string | null>();
   const [userData, setUserData] = useGlobalState("userData");
-  const [userInput, setUserInput] = useState<{ ip: any } | null>();
+  const [userInput, setUserInput] = useState<{ ip: string } | null>();
 
   const User_url = "https://ipapi.co/json";
-  // const url = `http://apiip.net/api/check?ip=${ip}&accessKey=${Secret_key}`;
-  // const Secret_key = import.meta.env.VITE_APP_IP_SECRET_KEY;
 
   useEffect(() => {
     switch (true) {
-      case userInput === undefined || null:
-        fetch(User_url)
-          .then((result) => result.json())
-          .then((result) =>
-            setUserData({
-              ...userData,
-              ip: result.ip,
-              city: result.city,
-              timezone: result.timezone,
-              org: result.org,
-              latitude: result.latitude,
-              longitude: result.longitude,
-            })
-          );
-        break;
+      case userInput === undefined || null || "":
+        try {
+          fetch(User_url)
+            .then((result) => result.json())
+            .then((result) =>
+              setUserData({
+                ...userData,
+                ip: result.ip,
+                city: result.city,
+                timezone: result.timezone,
+                org: result.org,
+                latitude: result.latitude,
+                longitude: result.longitude,
+              })
+            );
+        } catch (error) {
+          // console.log(error);
+        }
 
-      case userInput !== undefined:
-        console.log(userInput?.ip);
         break;
 
       default:
+        // console.log(userInput?.ip);
+
         break;
     }
   }, [userInput, userData]);
@@ -56,7 +57,7 @@ function Form({ title }: Props) {
   // console.log(userData.ip);
   function Validate() {
     switch (true) {
-      case userInput === undefined:
+      case userInput === null:
         const rest = setTimeout(() => {
           setMessage("cannot be black");
         }, 300);
@@ -75,8 +76,8 @@ function Form({ title }: Props) {
               latitude: result.latitude,
               longitude: result.longitude,
             })
-          )
-          .catch((error) => console.log(error));
+          );
+        // .catch((error) => console.log(error));
         break;
     }
   }
