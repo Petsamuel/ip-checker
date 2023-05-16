@@ -18,30 +18,28 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
 });
 
 function Form({ title }: Props) {
-  const [message, setMessage] = useState<string | null>();
+  const [message, setMessage] = useState<boolean>(false);
   const [userData, setUserData] = useGlobalState("userData");
   const [userInput, setUserInput] = useState<string | null>();
 
   const User_url = "https://ipapi.co/json";
 
   useEffect(() => {
-   
-      if (userInput === undefined || null){
-        fetch(User_url)
-          .then((result) => result.json())
-          .then((result) =>
-            setUserData({
-              ...userData,
-              ip: result.ip,
-              city: result.city,
-              timezone: result.timezone,
-              org: result.org,
-              latitude: result.latitude,
-              longitude: result.longitude,
-            })
-          );
-
-      }
+    if (userInput === undefined || null) {
+      fetch(User_url)
+        .then((result) => result.json())
+        .then((result) =>
+          setUserData({
+            ...userData,
+            ip: result.ip,
+            city: result.city,
+            timezone: result.timezone,
+            org: result.org,
+            latitude: result.latitude,
+            longitude: result.longitude,
+          })
+        );
+    }
   }, []);
 
   function Validate() {
@@ -61,8 +59,9 @@ function Form({ title }: Props) {
             longitude: result.longitude,
           })
         );
+      console.log("worked");
     } else {
-      console.log("failed test");
+      setMessage(true);
     }
   }
   return (
@@ -78,6 +77,7 @@ function Form({ title }: Props) {
             className={"rounded-l-lg p-4 outline-none w-full"}
             onChange={(e) => {
               setUserInput(e.target.value);
+              setMessage(false);
             }}
           />
 
@@ -85,6 +85,16 @@ function Form({ title }: Props) {
             {" "}
             <img src={IconSvg} alt="search" className="p-2" />
           </button>
+          <br />
+        </div>
+        <div
+          className={
+            message === false || undefined
+              ? "hidden"
+              : "text-xl text-gray-200 text-center"
+          }
+        >
+          Invalid IP Address
         </div>
       </div>
     </section>
