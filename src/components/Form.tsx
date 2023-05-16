@@ -20,51 +20,14 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
 function Form({ title }: Props) {
   const [message, setMessage] = useState<string | null>();
   const [userData, setUserData] = useGlobalState("userData");
-  const [userInput, setUserInput] = useState<{ ip: string } | null>();
+  const [userInput, setUserInput] = useState<string | null>();
 
   const User_url = "https://ipapi.co/json";
 
   useEffect(() => {
-    switch (true) {
-      case userInput === undefined || null || "":
-        try {
-          fetch(User_url)
-            .then((result) => result.json())
-            .then((result) =>
-              setUserData({
-                ...userData,
-                ip: result.ip,
-                city: result.city,
-                timezone: result.timezone,
-                org: result.org,
-                latitude: result.latitude,
-                longitude: result.longitude,
-              })
-            );
-        } catch (error) {
-          // console.log(error);
-        }
-
-        break;
-
-      default:
-        // console.log(userInput?.ip);
-
-        break;
-    }
-  }, [userInput, userData]);
-
-  // console.log(userData.ip);
-  function Validate() {
-    switch (true) {
-      case userInput === null:
-        const rest = setTimeout(() => {
-          setMessage("cannot be black");
-        }, 300);
-        break;
-
-      default:
-        fetch(`https://ipapi.co/${userInput?.ip}/json`)
+   
+      if (userInput === undefined || null){
+        fetch(User_url)
           .then((result) => result.json())
           .then((result) =>
             setUserData({
@@ -77,8 +40,29 @@ function Form({ title }: Props) {
               longitude: result.longitude,
             })
           );
-        // .catch((error) => console.log(error));
-        break;
+
+      }
+  }, []);
+
+  function Validate() {
+    const pattern = /([0-9])\w+/g;
+
+    if (pattern.test(userInput ? userInput : "")) {
+      fetch(`https://ipapi.co/${userInput}/json`)
+        .then((result) => result.json())
+        .then((result) =>
+          setUserData({
+            ...userData,
+            ip: result.ip,
+            city: result.city,
+            timezone: result.timezone,
+            org: result.org,
+            latitude: result.latitude,
+            longitude: result.longitude,
+          })
+        );
+    } else {
+      console.log("failed test");
     }
   }
   return (
@@ -93,7 +77,7 @@ function Form({ title }: Props) {
             placeholder={"Search for any IP address "}
             className={"rounded-l-lg p-4 outline-none w-full"}
             onChange={(e) => {
-              setUserInput({ ...userData, ip: e.target.value });
+              setUserInput(e.target.value);
             }}
           />
 
