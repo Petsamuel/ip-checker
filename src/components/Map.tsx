@@ -5,13 +5,18 @@ import "leaflet/dist/leaflet.css";
 
 function Map() {
   const [userData] = useGlobalState("userData");
-  const [position, setposition] = useState<[number, number]>();
+  const [position, setPosition] = useState<boolean>(false);
+  const [center, setCenter] = useState<[number, number]>([51.505, -0.09]);
   const Mapref = useRef(null);
-
+  useEffect(() => {
+    setCenter([userData.latitude, userData.longitude]);
+    console.log(userData.latitude);
+    setPosition(true);
+  }, []);
   return (
     <Fragment>
       <MapContainer
-        center={[userData.latitude, userData.longitude]}
+        center={position ? center : [51.505, -0.09]}
         zoom={13}
         scrollWheelZoom={false}
         ref={Mapref}
@@ -21,7 +26,7 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[userData.latitude, userData.longitude]}>
+        <Marker position={position ? center : [51.505, -0.09]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>

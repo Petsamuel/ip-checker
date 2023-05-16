@@ -21,7 +21,7 @@ function Header() {
             </p>
           </div>
           {/* location */}
-          <div className=" border-l px-4">
+          <div className=" lg:border-l md:border-l sm:border-b sm:border-full py-2 lg:border-b-0 md:border-b-0 px-4">
             <p className="uppercase text-xs  border-gray-400 ">Location</p>
             <p className="text-xl text-black font-semibold">
               {Userdata && Userdata.city}
@@ -29,7 +29,7 @@ function Header() {
           </div>
 
           {/* timezone */}
-          <div className="border-l  px-4">
+          <div className="lg:border-l md:border-l sm:border-b sm:border-full py-2 lg:border-b-0 md:border-b-0  px-4">
             <>
               <p className="uppercase text-xs ">Timezone</p>
               <p className="text-xl text-black font-semibold">
@@ -43,7 +43,7 @@ function Header() {
           </div>
 
           {/* isp */}
-          <div className="border-l  px-4">
+          <div className="lg:border-l md:border-l sm:border-b sm:border-full py-2 lg:border-b-0 md:border-b-0  px-4">
             <>
               <p className="uppercase text-xs ">ISP</p>
               <p className="text-xl text-black font-semibold">
