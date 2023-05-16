@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useGlobalState } from "./Form";
+import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 function Map() {
@@ -8,6 +9,10 @@ function Map() {
   const [position, setPosition] = useState<boolean>(false);
   const [center, setCenter] = useState<[number, number]>([51.505, -0.09]);
   const Mapref = useRef(null);
+  const customIcon = new Icon({
+    iconUrl: "https://www.freeiconspng.com/uploads/map-location-icon-28.png",
+    iconSize: [38, 38],
+  });
   useEffect(() => {
     setCenter([userData.latitude, userData.longitude]);
     console.log(userData.latitude);
@@ -26,7 +31,10 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={position ? center : [51.505, -0.09]}>
+        <Marker
+          position={position ? center : [51.505, -0.09]}
+          icon={customIcon}
+        >
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
