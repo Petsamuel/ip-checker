@@ -91,7 +91,7 @@ function Form({ title }: Props) {
           className={
             message === false || undefined
               ? "hidden"
-              : "text-xl text-gray-200 text-center"
+              : "text-md text-gray-200 text-center"
           }
         >
           Invalid IP Address

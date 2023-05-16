@@ -12,7 +12,7 @@ function Header() {
     >
       <Form title="IP Address Tracker" />
       <div className="relative bottom-0 flex justify-center  gap-5 z-50 py-4">
-        <div className="bg-[#ffff] text-gray-500 flex  py-4  items-start justify-center gap-8 absolute rounded-xl p-16 mx-8 md:flex-row lg:flex-row">
+        <div className="bg-[#ffff] text-gray-500 flex  py-4  items-start justify-center gap-8 absolute rounded-xl p-16 mx-8 md:flex-row lg:flex-row flex-col">
           {/* ip address */}
           <div className="">
             <p className="uppercase text-xs  ">Ip address</p>

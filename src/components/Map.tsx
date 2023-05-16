@@ -8,23 +8,20 @@ function Map() {
   const [position, setposition] = useState<[number, number]>();
   const Mapref = useRef(null);
 
-  useEffect(() => {
-    setposition([userData.latitude, userData.longitude]);
-  }, [userData]);
-
   return (
     <Fragment>
       <MapContainer
-        center={[51.505, -0.09]}
+        center={[userData.latitude, userData.longitude]}
         zoom={13}
         scrollWheelZoom={false}
         ref={Mapref}
+        zoomAnimation={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.505, -0.09]}>
+        <Marker position={[userData.latitude, userData.longitude]}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
