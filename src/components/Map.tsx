@@ -6,25 +6,23 @@ import "leaflet/dist/leaflet.css";
 
 function Map() {
   const [userData] = useGlobalState("userData");
-  const [position, setPosition] = useState<boolean>(false);
   const [center, setCenter] = useState<[number, number]>([51.505, -0.09]);
-  const Mapref = useRef(null);
+  const mapRef = useRef(null);
   const customIcon = new Icon({
-    iconUrl: "https://www.freeiconspng.com/uploads/map-location-icon-28.png",
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/3177/3177361.png",
     iconSize: [38, 38],
   });
   useEffect(() => {
     setCenter([userData.latitude, userData.longitude]);
-    console.log(userData.latitude);
-    setPosition(true);
-  }, []);
+    
+  }, [userData.latitude, userData.longitude]);
   return (
     <Fragment>
       <MapContainer
-        center={position ? center : [51.505, -0.09]}
+        center={center}
         zoom={13}
         scrollWheelZoom={false}
-        ref={Mapref}
+        ref={mapRef}
         zoomAnimation={true}
       >
         <TileLayer
@@ -32,7 +30,7 @@ function Map() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker
-          position={position ? center : [51.505, -0.09]}
+          position={center}
           icon={customIcon}
         >
           <Popup>
