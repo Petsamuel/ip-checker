@@ -2,7 +2,7 @@ export default function Testing(){
    export const nav = [
      {
        name: "home",
-       link: "",
+       link: "/",
     },
     {
       name: "about",
@@ -17,7 +17,7 @@ export default function Testing(){
           <ul className="flex gap-4 lg:flex-row flex-col">
 
               {nav.map((val, key)=>(
-            <li className="uppercase" key={val.key}>{val.name}</li>))}
+            <li className="uppercase" key={key}>{val.name}</li>))}
            
           </ul>
         </nav>
