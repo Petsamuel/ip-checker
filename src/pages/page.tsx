@@ -1,5 +1,5 @@
 export default function Testing(){
-   export const nav = [
+    const nav = [
      {
        name: "home",
        link: "/",
