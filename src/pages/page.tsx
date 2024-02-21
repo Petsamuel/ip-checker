@@ -1,4 +1,4 @@
-export default Testing(){
+export const Testing=()=>{
    export const nav = [
      {
        name: "home",
